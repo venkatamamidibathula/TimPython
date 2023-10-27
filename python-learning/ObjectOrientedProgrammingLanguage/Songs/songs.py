@@ -59,11 +59,23 @@ class Artist():
 
 
 def load_data():
+    new_artist = None
+    new_album = None
+    arist_list = []
     with open('albums.txt','r') as albums:
         for line in albums:
             artist_field,album_field,year_field,song_field=tuple(line.strip('\n').split('\t'))
             year_field = int(year_field)
             print(artist_field,album_field,year_field,song_field)
+            if new_artist is None:
+                new_artist = Artist(artist_field)
+            elif new_artist.name != artist_field:
+                new_artist.add_album(album_field)
+                arist_list.append(new_artist)
+                new_artist = Artist(artist_field)
 
 
-load_data()
+
+
+if __name__== '__main__':
+    load_data()
